@@ -657,6 +657,63 @@
             color: #0f172a;
         }
 
+        
+        /* Pillar card interactive styles */
+        .pillar-card {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+        }
+
+        .pillar-click-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-top: 8px;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .pillar-card.water .pillar-click-hint { color: #0284c7; }
+        .pillar-card.energy .pillar-click-hint { color: #d97706; }
+        .pillar-card.food .pillar-click-hint { color: #059669; }
+        .pillar-card.environment .pillar-click-hint { color: #0d9488; }
+
+        .btn-pillar-switch {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 16px;
+            border-radius: 8px;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-pillar-switch:hover {
+            background: #e0f2fe;
+            border-color: #38bdf8;
+            color: #0369a1;
+            transform: translateY(-2px);
+        }
+
+        .btn-pillar-switch.active {
+            background: #0284c7;
+            color: white;
+            border-color: #0284c7;
+            box-shadow: 0 2px 6px rgba(2, 132, 199, 0.35);
+        }
+
         /* Detail Section Styles */
         .detail-header-card {
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
@@ -1051,34 +1108,38 @@
         <!-- ================= VIEW 1: HOME OVERVIEW ================= -->
         <main id="view-home" class="view-section active">
             
-            <!-- 4 Trụ Cột WEFE -->
+            <!-- 4 Trụ Cột WEFE (Nhấn vào từng khối để xem phân tích chi tiết trong đề tài) -->
             <div class="nexus-pillars">
-                <div class="pillar-card water">
+                <div class="pillar-card water" onclick="openPillarDetail('water')" title="Nhấn để xem phân tích khía cạnh Nước trong phạm vi đề tài">
                     <div class="pillar-icon">💧</div>
                     <div>
-                        <div class="pillar-title">Nước (Water)</div>
+                        <div class="pillar-title">Nước</div>
                         <div class="pillar-desc">Cân bằng cung - cầu nước mặt, nước dưới đất, hạ thấp lòng dẫn sông Hồng, xâm nhập mặn cửa sông và an ninh nguồn nước.</div>
+                        <div class="pillar-click-hint">Xem thêm ↗</div>
                     </div>
                 </div>
-                <div class="pillar-card energy">
+                <div class="pillar-card energy" onclick="openPillarDetail('energy')" title="Nhấn để xem phân tích khía cạnh Năng lượng trong phạm vi đề tài">
                     <div class="pillar-icon">⚡</div>
                     <div>
-                        <div class="pillar-title">Năng lượng (Energy)</div>
+                        <div class="pillar-title">Năng lượng</div>
                         <div class="pillar-desc">Hệ thống bậc thang thủy điện sông Đà, nước làm mát nhà máy nhiệt điện, năng lượng tái tạo và cam kết Net Zero 2050.</div>
+                        <div class="pillar-click-hint">Xem thêm ↗</div>
                     </div>
                 </div>
-                <div class="pillar-card food">
+                <div class="pillar-card food" onclick="openPillarDetail('food')" title="Nhấn để xem phân tích khía cạnh Lương thực trong phạm vi đề tài">
                     <div class="pillar-icon">🌾</div>
                     <div>
-                        <div class="pillar-title">Lương thực (Food)</div>
+                        <div class="pillar-title">Lương thực</div>
                         <div class="pillar-desc">Thủy nông Bắc Hưng Hải, Nhuệ - Đáy, lấy nước xả ải vụ Đông Xuân, an ninh lương thực và chuyển đổi cơ cấu cây trồng.</div>
+                        <div class="pillar-click-hint">Xem thêm ↗</div>
                     </div>
                 </div>
-                <div class="pillar-card environment">
+                <div class="pillar-card environment" onclick="openPillarDetail('environment')" title="Nhấn để xem phân tích khía cạnh Môi trường trong phạm vi đề tài">
                     <div class="pillar-icon">🌿</div>
                     <div>
-                        <div class="pillar-title">Môi trường (Ecosystems)</div>
+                        <div class="pillar-title">Môi trường</div>
                         <div class="pillar-desc">Chất lượng nước sông nội đồng, bùn cát bồi lắng, dòng chảy môi trường, hệ sinh thái đất ngập nước và rừng ngập mặn ven biển.</div>
+                        <div class="pillar-click-hint">Xem thêm ↗</div>
                     </div>
                 </div>
             </div>
@@ -1575,6 +1636,88 @@
                     <div class="timeline-container" id="person-timeline-list">
                         <!-- JS điền dữ liệu timeline -->
                     </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 24px; text-align: center;">
+                <button class="btn-back" onclick="backToHome()">← Quay lại Trang Tổng quan</button>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 4: PILLAR DETAIL PAGE ================= -->
+        <section id="view-pillar-detail" class="view-section">
+            <div class="back-nav-bar">
+                <div class="breadcrumb">
+                    <a href="javascript:void(0)" onclick="backToHome()" style="color:var(--primary); text-decoration:none; font-weight:600;">Trang chủ</a>
+                    <span> / </span>
+                    <span>4 Trụ cột WEFE</span>
+                    <span> / </span>
+                    <strong id="pillar-breadcrumb-title">Trụ cột</strong>
+                </div>
+                <button class="btn-back" onclick="backToHome()">← Quay lại Trang Tổng quan</button>
+            </div>
+
+            <div class="detail-header-card" id="pillar-header-card">
+                <div class="detail-badge-group">
+                    <span class="detail-badge" id="pillar-badge-group" style="background:#0284c7; color:white; border:none;">Trụ cột WEFE</span>
+                    <span class="detail-badge" id="pillar-scope-badge">Lưu vực Sông Hồng – Thái Bình</span>
+                    <span class="detail-badge" style="background:#fef3c7; border-color:#fde047; color:#92400e;">Đề tài KC14-08/21-30</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:16px; margin: 10px 0 12px 0;">
+                    <div id="pillar-header-icon" style="font-size: 42px; line-height: 1;">💧</div>
+                    <div>
+                        <h1 class="detail-title" id="pillar-title-full" style="margin-bottom: 2px;">Trụ cột trong Đề tài KC14</h1>
+                        <p id="pillar-subtitle" style="font-size: 0.98rem; color: #334155; font-weight: 500;">Phân tích vai trò, phạm vi nghiên cứu và cơ chế tương tác đa ngành</p>
+                    </div>
+                </div>
+                <div class="detail-lead-info">
+                    <div><strong>Nội dung trực tiếp trong đề tài:</strong> <span id="pillar-direct-tasks">Nội dung 3, 7, 8, 10, 11</span></div>
+                    <div><strong>Mô hình toán & công cụ:</strong> <span id="pillar-models-used">SWAT+, HEC-RAS 1D, WebGIS</span></div>
+                </div>
+            </div>
+
+            <div class="detail-grid-4">
+                <!-- 1. Định vị & Vai trò -->
+                <div class="detail-block goal" id="pillar-block-role">
+                    <div class="detail-block-title">
+                        <span>1. Định vị & Vai trò trong đề tài KC14-08/21-30</span>
+                    </div>
+                    <div id="pillar-role-text" style="font-size: 0.95rem; line-height: 1.6; color:#1e293b;"></div>
+                </div>
+
+                <!-- 2. Phạm vi nghiên cứu & Đối tượng trọng tâm -->
+                <div class="detail-block" id="pillar-block-scope" style="border-left: 5px solid #0284c7;">
+                    <div class="detail-block-title">
+                        <span>2. Phạm vi nghiên cứu & Các đối tượng trọng tâm trong lưu vực</span>
+                    </div>
+                    <div id="pillar-scope-text" style="font-size: 0.95rem; line-height: 1.6; color:#1e293b;"></div>
+                </div>
+
+                <!-- 3. Mối liên kết, Xung đột & Đánh đổi -->
+                <div class="detail-block why" id="pillar-block-conflicts">
+                    <div class="detail-block-title" style="color: #b45309;">
+                        <span>3. Mối liên kết, Xung đột & Đánh đổi (Trade-offs)</span>
+                    </div>
+                    <div id="pillar-conflicts-text" style="font-size: 0.95rem; line-height: 1.6; color:#334155;"></div>
+                </div>
+
+                <!-- 4. Phương pháp mô hình hóa & Giải pháp -->
+                <div class="detail-block output" id="pillar-block-methods">
+                    <div class="detail-block-title" style="color: #6d28d9;">
+                        <span>4. Phương pháp mô hình hóa & Giải pháp bền vững</span>
+                    </div>
+                    <div id="pillar-methods-text" style="font-size: 0.95rem; line-height: 1.6; color:#1e293b;"></div>
+                </div>
+            </div>
+
+            <!-- Chuyển nhanh giữa 4 trụ cột -->
+            <div style="margin-top: 26px; padding: 20px; background: white; border-radius: 12px; border: 1px solid var(--border);">
+                <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 12px; color: #0f172a;">Xem nhanh các trụ cột WEFE khác:</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <button class="btn-pillar-switch" onclick="openPillarDetail('water')" id="switch-btn-water">💧 Nước</button>
+                    <button class="btn-pillar-switch" onclick="openPillarDetail('energy')" id="switch-btn-energy">⚡ Năng lượng</button>
+                    <button class="btn-pillar-switch" onclick="openPillarDetail('food')" id="switch-btn-food">🌾 Lương thực</button>
+                    <button class="btn-pillar-switch" onclick="openPillarDetail('environment')" id="switch-btn-environment">🌿 Môi trường</button>
                 </div>
             </div>
 
@@ -2164,6 +2307,216 @@
             }
         };
 
+        
+        // Dữ liệu chi tiết 4 Trụ cột WEFE trích xuất từ Thuyết minh đề tài
+        const pillarDatabase = {
+            'water': {
+                key: 'water',
+                name: 'Nước',
+                icon: '💧',
+                title: 'Trụ cột Nước trong Đề tài KC14-08/21-30',
+                subtitle: 'Mạch máu kết nối các ngành – Cân bằng cung cầu, hạ thấp lòng dẫn và an ninh nguồn nước lưu vực sông Hồng – Thái Bình',
+                directTasks: 'Nội dung 3 (CSDL Nguồn nước), Nội dung 7 (Mô hình SWAT+), Nội dung 8 (Mô hình Thủy lực 1D), Nội dung 10 (WebGIS), Nội dung 11 (Giải pháp)',
+                modelsUsed: 'SWAT+/VIC (Thủy văn sinh thái), HEC-RAS (Thủy lực đồng bằng), WebGIS (Tích hợp & Dashboard)',
+                themeColor: '#0284c7',
+                roleHtml: `
+                    <p style="margin-bottom:10px;">Trong khuôn khổ đề tài KC14-08/21-30, tài nguyên <strong>Nước</strong> được định vị là <strong>hạt nhân trung tâm của chu trình vật lý</strong>, vừa là tài nguyên dùng chung, vừa là phương tiện truyền dẫn tác động tương hỗ giữa các ngành Năng lượng, Lương thực và Môi trường.</p>
+                    <p>Khác với cách tiếp cận đơn ngành truyền thống (IWRM vốn thường đặt nước ở vị trí độc tôn và xem các ngành khác chỉ là bên thụ hưởng), đề tài tiếp cận Nước theo tư duy đa ngành WEFE: điều tiết phát điện của hệ thống hồ chứa chiến lược thượng nguồn, cấp nước tưới tiêu cho vựa lúa đồng bằng, duy trì dòng chảy môi trường sinh thái và ứng phó với hiện tượng hạ thấp lòng dẫn đáy sông.</p>
+                `,
+                scopeHtml: `
+                    <ul style="padding-left: 20px; display:flex; flex-direction:column; gap:8px;">
+                        <li><strong>Toàn bộ lưu vực sông Hồng – Thái Bình:</strong> Diện tích hơn 169.000 km², trong đó hơn 50% nằm trên lãnh thổ Trung Quốc (thượng nguồn sông Thao, sông Đà, sông Lô), đòi hỏi đồng hóa dữ liệu viễn thám mưa vệ tinh (GPM, CHIRPS) để mô phỏng dòng chảy xuyên biên giới.</li>
+                        <li><strong>Hệ thống liên hồ chứa chiến lược:</strong> Bậc thang thủy điện Lai Châu, Sơn La, Hòa Bình, Bản Chát, Huội Quảng trên sông Đà; Thác Bà trên sông Chảy; Tuyên Quang trên sông Gâm với tổng dung tích hữu ích hàng chục tỷ m³.</li>
+                        <li><strong>Mạng sông đồng bằng & phân lưu:</strong> Sông Hồng, sông Đuống (phân lưu 30–40% lượng dòng chảy), sông Đáy, sông Luộc và hệ thống sông Thái Bình; mạng lưới công trình lấy nước đầu mối (Xuân Quan, Long Tửu, Liên Mạc, Cẩm Đình - Hiệp Thuận).</li>
+                        <li><strong>Hiện tượng xói sâu hạ thấp lòng dẫn:</strong> Đáy sông Hồng khu vực Hà Nội bị xói sâu trung bình 7–8 cm/năm giai đoạn sau năm 1996 (có vị trí tụt sâu trên 2–3m), làm biến dạng sâu sắc đường cong lưu lượng – mực nước (Q–H) và tụt mực nước mùa kiệt tại Hà Nội xuống dưới +1.0m.</li>
+                        <li><strong>Động lực vùng cửa sông ven biển:</strong> Tương tác triều, dòng chảy ngọt và xâm nhập mặn tại 3 cửa sông lớn: Ba Lạt (sông Hồng), Trà Lý và cửa Đáy.</li>
+                    </ul>
+                `,
+                conflictsHtml: `
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        <div>
+                            <strong style="color:#0369a1;">• Xung đột Nước – Năng lượng (W–E):</strong> 
+                            Thủy điện cần tích nước trong hồ vào mùa đông để phát điện công suất đỉnh vào các tháng cao điểm nắng nóng mùa hè (tháng 5–6) có giá trị kinh tế cao, nhưng lại phải xả nước sớm (tháng 1–2) với lưu lượng lớn (xả ải Đông Xuân) có giá trị kinh tế phát điện thấp hơn.
+                        </div>
+                        <div>
+                            <strong style="color:#b45309;">• Xung đột Nước – Lương thực (W–F):</strong> 
+                            Đáy sông bị hạ thấp khiến các cống tự chảy không thể lấy được nước vào hệ thống đại thủy nông (Bắc Hưng Hải, sông Nhuệ), dẫn đến tình trạng hàng tỷ m³ nước xả từ hồ chứa thủy điện trôi ra biển lãng phí mà đồng ruộng vẫn thiếu nước, buộc phải đầu tư các trạm bơm dã chiến tốn kém điện năng.
+                        </div>
+                        <div>
+                            <strong style="color:#059669;">• Xung đột Nước – Môi trường (W–Env):</strong> 
+                            Lượng nước kiệt về hạ du suy giảm và lòng dẫn bị xói sâu làm giảm khả năng tự làm sạch, gia tăng ô nhiễm tại các sông nội đồng và đẩy ranh giới mặn 1‰, 4‰ tiến sâu vào nội đồng, đe dọa nguồn nước sinh hoạt và hệ sinh thái ven biển.
+                        </div>
+                    </div>
+                `,
+                methodsHtml: `
+                    <p style="margin-bottom:10px;">• Thiết lập mô hình phân bố/bán phân bố SWAT+/VIC lưới 5km × 5km đồng hóa dữ liệu vệ tinh GPM, CHIRPS, ERA5 để mô phỏng dòng chảy sinh thủy toàn lưu vực (kể cả phần Trung Quốc).</p>
+                    <p style="margin-bottom:10px;">• Xây dựng mô hình thủy lực 1D HEC-RAS cập nhật 10 mặt cắt ngang đo bổ sung để đánh giá diễn biến hạ thấp lòng dẫn và lan truyền mặn 3 cửa sông.</p>
+                    <p>• Đề xuất giải pháp vận hành tối ưu liên hồ chứa xả nước - bùn cát kết hợp nghiên cứu các giải pháp công trình đập dâng điều tiết mực nước tại sông Hồng (Xuân Quan, Long Tửu) thích ứng dài hạn đến năm 2050.</p>
+                `
+            },
+            'energy': {
+                key: 'energy',
+                name: 'Năng lượng',
+                icon: '⚡',
+                title: 'Trụ cột Năng lượng trong Đề tài KC14-08/21-30',
+                subtitle: 'An ninh năng lượng quốc gia, vận hành bậc thang thủy điện sông Đà, dấu chân nước và lộ trình Net Zero 2050',
+                directTasks: 'Nội dung 4 (CSDL Năng lượng), Nội dung 9 (Mô hình Năng lượng LEAP/OSeMOSYS), Nội dung 10 (WebGIS), Nội dung 11 (Kịch bản năng lượng 2050)',
+                modelsUsed: 'OSeMOSYS / LEAP (Cân bằng năng lượng & Dấu chân nước), WebGIS Dashboard',
+                themeColor: '#d97706',
+                roleHtml: `
+                    <p style="margin-bottom:10px;">Trụ cột <strong>Năng lượng</strong> giữ vai trò động lực phát triển kinh tế cho vùng Thủ đô và toàn miền Bắc, đồng thời là ngành <strong>tiêu thụ và điều tiết tài nguyên nước lớn nhất</strong> trên lưu vực sông Hồng.</p>
+                    <p>Đề tài tập trung nghiên cứu tối ưu hóa quy trình điều tiết của bậc thang thủy điện sông Đà (chiếm gần 50% công suất thủy điện cả nước), định lượng 'dấu chân nước' (water footprint) của các nhà máy nhiệt điện than và đánh giá kịch bản chuyển dịch năng lượng xanh theo Quy hoạch điện VIII và cam kết Net Zero năm 2050.</p>
+                `,
+                scopeHtml: `
+                    <ul style="padding-left: 20px; display:flex; flex-direction:column; gap:8px;">
+                        <li><strong>Hệ thống thủy điện chiến lược bậc thang sông Đà:</strong> Hòa Bình (1.920 MW, dung tích 9,45 tỷ m³), Sơn La (2.400 MW, dung tích 9,26 tỷ m³), Lai Châu (1.200 MW), Bản Chát (220 MW), Huội Quảng (520 MW), Tuyên Quang (342 MW), Thác Bà (120 MW). Đóng vai trò điều tần và phủ đỉnh phụ tải hệ thống điện quốc gia.</li>
+                        <li><strong>Các trung tâm nhiệt điện than lớn:</strong> Tập trung tại Quảng Ninh, Hải Phòng, Hải Dương, Ninh Bình với nhu cầu nước làm mát khổng lồ (nước ngọt và nước lợ).</li>
+                        <li><strong>Dấu chân nước (Water Footprint) của năng lượng:</strong> Lượng nước bốc hơi qua mặt hồ thủy điện; lượng nước làm mát tuần hoàn tại các nhà máy nhiệt điện; lượng nước phục vụ khai thác than vùng Quảng Ninh.</li>
+                        <li><strong>Cơ cấu tiêu thụ và phụ tải điện:</strong> Nhu cầu điện công nghiệp nặng, sinh hoạt và phụ tải điện tăng đột biến cho hàng nghìn trạm bơm tưới tiêu nông nghiệp mùa đổ ải.</li>
+                        <li><strong>Chuyển dịch năng lượng Net Zero 2050:</strong> Tích hợp Quy hoạch điện VIII: giảm dần nhiệt điện than, phát triển điện mặt trời nổi trên hồ chứa và thủy điện tích năng.</li>
+                    </ul>
+                `,
+                conflictsHtml: `
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        <div>
+                            <strong style="color:#d97706;">• Xung đột Năng lượng – Nông nghiệp & Nước (E–W–F):</strong> 
+                            Trong các đợt xả nước đổ ải vụ Đông Xuân (khoảng 15–20 ngày trong tháng 1–2), các hồ thủy điện phải phát điện chạy nền liên tục với công suất vượt nhu cầu phụ tải của hệ thống điện để duy trì mực nước Hà Nội trên +1.8m đến +2.2m. Điều này làm giảm cột nước phát điện hiệu quả, tiêu hao lượng nước tích trữ quý giá cho đợt cao điểm nắng nóng mùa hè (tháng 5–6) khi hệ thống điện miền Bắc căng thẳng nhất.
+                        </div>
+                        <div>
+                            <strong style="color:#059669;">• Xung đột Năng lượng – Môi trường (E–Env):</strong> 
+                            Nước làm mát xả thải từ các nhà máy nhiệt điện than mang tải nhiệt cao làm thay đổi nhiệt độ thủy vực xung quanh; việc chặn dòng của các đập thủy điện khổng lồ giữ lại hầu như toàn bộ phù sa bùn cát, gây suy thoái hình thái lòng sông hạ du.
+                        </div>
+                    </div>
+                `,
+                methodsHtml: `
+                    <p style="margin-bottom:10px;">• Áp dụng nền tảng LEAP hoặc OSeMOSYS để mô phỏng cân bằng cung - cầu điện, xác định chi phí cơ hội của việc giữ nước phát điện so với xả nước nông nghiệp.</p>
+                    <p style="margin-bottom:10px;">• Lượng hóa chỉ số năng suất năng lượng nước (Water Energy Productivity - WEP) cho từng nhà máy thủy điện.</p>
+                    <p>• Xây dựng kịch bản năng lượng đến 2050: chuyển đổi các nhà máy nhiệt điện than cũ, phát triển năng lượng tái tạo phân tán và điện mặt trời nổi trên lòng hồ thủy điện nhằm giảm bốc hơi nước.</p>
+                `
+            },
+            'food': {
+                key: 'food',
+                name: 'Lương thực',
+                icon: '🌾',
+                title: 'Trụ cột Lương thực trong Đề tài KC14-08/21-30',
+                subtitle: 'Vựa lúa đồng bằng Bắc Bộ, hệ thống đại thủy nông, an ninh lương thực và bài toán thích ứng hạ thấp lòng dẫn',
+                directTasks: 'Nội dung 5 (CSDL Lương thực), Nội dung 8 (Mô hình HEC-RAS cống lấy nước), Nội dung 10 (WebGIS), Nội dung 11 (Kịch bản 2050)',
+                modelsUsed: 'Mô hình nhu cầu nước CROPWAT, HEC-RAS (Mô phỏng lấy nước cống), WebGIS',
+                themeColor: '#059669',
+                roleHtml: `
+                    <p style="margin-bottom:10px;">Trụ cột <strong>Lương thực</strong> đại diện cho <strong>an ninh lương thực quốc gia</strong> và sinh kế của hơn 20 triệu người dân tại đồng bằng sông Hồng – vựa lúa lớn thứ hai cả nước.</p>
+                    <p>Đề tài xem xét toàn diện chuỗi sản xuất nông nghiệp từ khai thác nước tưới, lịch gieo cấy lúa vụ Đông Xuân/Mùa, chuyển đổi cơ cấu cây trồng, chăn nuôi, nuôi trồng thủy sản cho đến mức tiêu hao điện năng và phát thải nông nghiệp trong bối cảnh nguồn nước suy giảm.</p>
+                `,
+                scopeHtml: `
+                    <ul style="padding-left: 20px; display:flex; flex-direction:column; gap:8px;">
+                        <li><strong>Các hệ thống đại thủy nông liên tỉnh:</strong>
+                            <br>– <em>Bắc Hưng Hải:</em> Tưới tiêu cho hơn 110.000 ha đất nông nghiệp của Hà Nội, Bắc Ninh, Hưng Yên, Hải Dương với công trình đầu mối là cống Xuân Quan (sông Hồng) và cống Cầu Cất, An Thổ (sông Thái Bình).
+                            <br>– <em>Sông Nhuệ – sông Đáy:</em> Tưới tiêu cho vùng nội đồng Hà Nội, Hà Nam, Nam Định với các cống Liên Mạc, Cẩm Đình - Hiệp Thuận.
+                            <br>– <em>Bắc Đuống:</em> Hệ thống lấy nước cống Long Tửu.
+                        </li>
+                        <li><strong>Cơ cấu trồng trọt & Thời vụ:</strong> Trọng tâm là vụ lúa Đông Xuân (thời kỳ đổ ải làm đất tháng 1–2) đòi hỏi lượng nước tập trung cực lớn; các mô hình trồng rau màu vụ đông và chuyển đổi cơ cấu cây trồng cạn giá trị cao.</li>
+                        <li><strong>Chăn nuôi & Thủy sản:</strong> Quy mô chăn nuôi gia súc, gia cầm tập trung; nuôi trồng thủy sản nước ngọt vùng trũng và thủy sản nước lợ ven biển (Hải Phòng, Nam Định, Ninh Bình).</li>
+                    </ul>
+                `,
+                conflictsHtml: `
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        <div>
+                            <strong style="color:#059669;">• Nghịch lý hạ thấp lòng dẫn làm treo cống:</strong> 
+                            Cống Xuân Quan được thiết kế lấy nước tự chảy ở mực nước +1.85m; cống Long Tửu ở +2.50m. Tuy nhiên hiện nay đáy sông Hồng đã hạ thấp từ 2m đến 3m, mực nước tự nhiên mùa kiệt chỉ đạt khoảng +0.5m đến +0.8m, khiến các cống hoàn toàn bị 'treo' không thể mở cống lấy nước tự chảy, làm gia tăng nguy cơ chậm lịch thời vụ gieo cấy lúa.
+                        </div>
+                        <div>
+                            <strong style="color:#d97706;">• Phụ thuộc năng lượng & Tiêu hao điện bơm dã chiến:</strong> 
+                            Do cống tự chảy bị treo, ngành nông nghiệp buộc phải lắp đặt và vận hành hàng chục cụm trạm bơm dã chiến nhiều cấp (như dã chiến Xuân Quan, Phù Sa, Đan Hoài...) với công suất hàng trăm nghìn m³/h, gây tiêu tốn lượng điện năng rất lớn và quá tải cục bộ lưới điện nông thôn.
+                        </div>
+                        <div>
+                            <strong style="color:#0284c7;">• Nguy cơ ô nhiễm nguồn nước tưới:</strong> 
+                            Nhiều kênh mương thủy nông nội đồng (nhất là sông Nhuệ, sông Đáy, kênh Bắc Hưng Hải) bị ô nhiễm hữu cơ và amoni nghiêm trọng do nước thải sinh hoạt đô thị, khiến nguồn nước tưới không đảm bảo tiêu chuẩn an toàn cho sản xuất nông nghiệp.
+                        </div>
+                    </div>
+                `,
+                methodsHtml: `
+                    <p style="margin-bottom:10px;">• Xây dựng CSDL số hóa chi tiết về diện tích tưới, cơ cấu mùa vụ, hệ số nhu cầu dùng nước theo từng tiểu vùng thủy nông.</p>
+                    <p style="margin-bottom:10px;">• Mô phỏng đánh giá kịch bản chuyển đổi cơ cấu cây trồng thích ứng: giảm diện tích lúa nước tiêu hao nhiều nước sang cây trồng cạn có giá trị kinh tế cao, áp dụng công nghệ tưới tiết kiệm (AWD - ngập khô xen kẽ).</p>
+                    <p>• Đề xuất giải pháp xây dựng đập dâng điều tiết mực nước tại sông Hồng kết hợp nâng cấp hệ thống trạm bơm lấy nước chủ động không phụ thuộc hoàn toàn vào các đợt xả tăng cường của thủy điện.</p>
+                `
+            },
+            'environment': {
+                key: 'environment',
+                name: 'Môi trường',
+                icon: '🌿',
+                title: 'Trụ cột Môi trường trong Đề tài KC14-08/21-30',
+                subtitle: 'Giới hạn an toàn sinh thái, suy thoái lòng dẫn, chất lượng nước sông nội đồng và đa dạng sinh học cửa biển',
+                directTasks: 'Nội dung 6 (CSDL Môi trường), Nội dung 7 (SWAT+ xói mòn & bùn cát), Nội dung 8 (Xâm nhập mặn & thủy lực), Nội dung 10 (WebGIS), Nội dung 11 (Giải pháp)',
+                modelsUsed: 'SWAT+ (Bùn cát & dưỡng chất N, P), HEC-RAS (Lan truyền mặn), Bộ chỉ số Sức khỏe hệ sinh thái',
+                themeColor: '#0d9488',
+                roleHtml: `
+                    <p style="margin-bottom:10px;">Trụ cột <strong>Môi trường và Hệ sinh thái</strong> được xác định là <strong>ngưỡng an toàn (ecological boundary)</strong> chi phối sự bền vững lâu dài của cả ba trụ cột còn lại.</p>
+                    <p>Đề tài không xem môi trường như một bên tiếp nhận thụ động mà là một hệ thống sống cung cấp các dịch vụ sinh thái cốt lõi: khả năng đồng hóa và tự làm sạch chất ô nhiễm, duy trì dòng chảy môi trường, kiểm soát xâm nhập mặn và cân bằng bồi lắng - xói lở hình thái lòng sông.</p>
+                `,
+                scopeHtml: `
+                    <ul style="padding-left: 20px; display:flex; flex-direction:column; gap:8px;">
+                        <li><strong>Mất cân bằng bùn cát & Hiện tượng 'Nước đói' (Hungry Water):</strong>
+                            Bậc thang thủy điện sông Đà giữ lại tới hơn 80-90% tổng lượng bùn cát phù sa từ thượng nguồn (hồ Hòa Bình và Sơn La làm giảm tải lượng bùn cát về hạ du từ ~100 triệu tấn/năm xuống còn dưới 10-15 triệu tấn/năm). Dòng nước trong thiếu phù sa chảy về hạ du cuốn trôi đáy sông gây hiện tượng hạ thấp lòng dẫn nghiêm trọng và sạt lở bờ sông Hồng, sông Đuống.
+                        </li>
+                        <li><strong>Chất lượng nước & Ô nhiễm sông nội đồng:</strong>
+                            Ô nhiễm hữu cơ (BOD5, COD), phú dưỡng (N, P), amoni tại các hệ thống sông nội đồng (sông Nhuệ - sông Đáy, hệ thống thủy nông Bắc Hưng Hải, sông Cầu) do tiếp nhận nước thải sinh hoạt từ các đô thị lớn (Hà Nội) và các cụm công nghiệp, làng nghề. Nước sông không được lưu thông thau rửa vào mùa kiệt.
+                        </li>
+                        <li><strong>Dòng chảy môi trường (Environmental Flow - E-Flow):</strong>
+                            Xác định ngưỡng lưu lượng và mực nước tối thiểu cần thiết duy trì trong mùa kiệt để bảo vệ hệ sinh thái thủy sinh vật và đẩy mặn ra xa các cửa lấy nước ngọt.
+                        </li>
+                        <li><strong>Hệ sinh thái cửa sông ven biển:</strong>
+                            Rừng ngập mặn tại Khu dự trữ sinh quyển thế giới Vườn quốc gia Xuân Thủy (Nam Định), khu Ramsar Tiền Hải (Thái Bình), các bãi triều bồi lắng và hệ sinh thái vùng triều ven biển.
+                        </li>
+                    </ul>
+                `,
+                conflictsHtml: `
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        <div>
+                            <strong style="color:#0d9488;">• Đánh đổi giữa Phát triển kinh tế & Suy thoái sinh thái:</strong> 
+                            Việc xây dựng các công trình đập thủy điện và lấy nước phục vụ nông nghiệp làm suy kiệt dòng chảy tối thiểu cho môi trường mùa kiệt; nước thải nông nghiệp chứa hóa chất BVTV và phân bón xả thẳng ra các dòng sông gây phú dưỡng nguồn nước.
+                        </div>
+                        <div>
+                            <strong style="color:#0284c7;">• Xâm nhập mặn đe dọa đa dạng sinh học:</strong> 
+                            Khi lưu lượng xả từ thượng nguồn thấp, triều cường đẩy mặn sâu vào 20–35 km trong các cửa sông Ba Lạt, Trà Lý, Đáy làm mặn hóa tầng nước ngầm và suy thoái các vùng đất ngập nước ngọt hóa ven biển.
+                        </div>
+                    </div>
+                `,
+                methodsHtml: `
+                    <p style="margin-bottom:10px;">• Lấy mẫu và đo đạc thực địa chất lượng nước (15 mẫu nước mặt, 09 mẫu bùn cát/trầm tích) tại các điểm nóng môi trường (Bắc Hưng Hải, sông Hồng).</p>
+                    <p style="margin-bottom:10px;">• Mô phỏng quá trình xói mòn, vận chuyển bùn cát bằng SWAT+ và mô phỏng lan truyền độ mặn tại 3 cửa sông Ba Lạt, Trà Lý, Đáy bằng HEC-RAS.</p>
+                    <p>• Đề xuất các giải pháp dựa vào tự nhiên (Nature-based Solutions - NbS): khoanh nuôi phục hồi rừng phòng hộ đầu nguồn, phục hồi thảm thực vật đất ngập nước lọc nước tự nhiên, và quy định dòng chảy môi trường bắt buộc trong Quy trình vận hành liên hồ chứa.</p>
+                `
+            }
+        };
+
+        // Hàm mở trang Chi tiết Trụ cột WEFE
+        function openPillarDetail(pillarKey) {
+            const p = pillarDatabase[pillarKey];
+            if (!p) return;
+
+            document.getElementById('pillar-breadcrumb-title').innerText = p.name;
+            document.getElementById('pillar-header-icon').innerText = p.icon;
+            document.getElementById('pillar-title-full').innerText = p.title;
+            document.getElementById('pillar-subtitle').innerText = p.subtitle;
+            document.getElementById('pillar-direct-tasks').innerText = p.directTasks;
+            document.getElementById('pillar-models-used').innerText = p.modelsUsed;
+
+            document.getElementById('pillar-role-text').innerHTML = p.roleHtml;
+            document.getElementById('pillar-scope-text').innerHTML = p.scopeHtml;
+            document.getElementById('pillar-conflicts-text').innerHTML = p.conflictsHtml;
+            document.getElementById('pillar-methods-text').innerHTML = p.methodsHtml;
+
+            // Highlight switch buttons
+            document.querySelectorAll('.btn-pillar-switch').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.getElementById(`switch-btn-${pillarKey}`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            // Switch view
+            switchView('view-pillar-detail');
+            window.location.hash = `#trucot-${pillarKey}`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         // Hàm mở trang Chi tiết Nội dung công việc
         function openTaskDetail(taskId) {
             const task = taskDatabase[taskId];
@@ -2300,6 +2653,12 @@
                 const personKey = hash.replace('#nhansu-', '');
                 if (personKey && personDatabase[personKey]) {
                     openPersonDetail(personKey);
+                    return;
+                }
+            } else if (hash.startsWith('#trucot-')) {
+                const pillarKey = hash.replace('#trucot-', '');
+                if (pillarKey && pillarDatabase[pillarKey]) {
+                    openPillarDetail(pillarKey);
                     return;
                 }
             }
