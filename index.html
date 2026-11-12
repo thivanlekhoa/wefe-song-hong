@@ -1836,7 +1836,7 @@
                         </div>
 
                         <details class="coauthor-details">
-                            <summary class="coauthor-summary">Thành viên tham gia chuyên đề VS2 & VS5 (14 người)</summary>
+                            <summary class="coauthor-summary">Thành viên tham gia chuyên đề</summary>
                             <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 8px;">
                                 <button class="person-item-btn" onclick="openPersonDetail('vdmanh')">
                                     <div class="person-name"><span>ThS. Vũ Đức Mạnh</span><span style="color:#0284c7; font-size:0.78rem;">3 chuyên đề ↗</span></div>
@@ -3439,7 +3439,7 @@
             if (taskReports.length > 0) {
                 const doneCnt = taskReports.filter(r => r.status === 'done').length;
                 barEl.style.display = 'flex';
-                document.getElementById('task-detail-reports-status').innerText = `Tài liệu thực tế đã tích hợp: ${doneCnt} báo cáo .docx đã nộp (${taskReports.length - doneCnt} đầu mục đang hoàn thiện theo Thuyết minh)`;
+                document.getElementById('task-detail-reports-status').innerText = `Tài liệu thực tế đã tích hợp: ${doneCnt} báo cáo đã nộp (${taskReports.length - doneCnt} đầu mục đang hoàn thiện theo Thuyết minh)`;
                 const modalBtn = document.getElementById('task-detail-open-modal-btn');
                 modalBtn.innerText = `Mở cửa sổ tải báo cáo (${doneCnt} file)`;
                 modalBtn.onclick = () => openTaskReportsModal(taskId);
